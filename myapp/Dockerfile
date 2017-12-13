@@ -7,10 +7,11 @@ RUN apk add --update \
     build-base
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
 COPY . /code
 WORKDIR /code
+
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 ENTRYPOINT ["python", "app.py"]
