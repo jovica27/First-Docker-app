@@ -6,8 +6,15 @@ python:
   - "2.7"
   - "3.6"
 
+services:
+  - docker
+
 install:
   - pip install -r myapp/requirements.txt
 
 script:
   - python myapp/tests.py
+
+after_success:
+  - docker --version
+  - docker build -t myapp/simple_flask_app .
