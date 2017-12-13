@@ -1,4 +1,4 @@
-sudo: true
+sudo: required
 
 language: python
 
@@ -14,9 +14,14 @@ install:
 
 script:
   - python tests.py
+
+before_deploy:
   - docker --version
   - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
   - docker images
   - docker run -d -p 5000:5000 $DOCKER_USERNAME/simple_flask_app:latest
+  - curl 0.0.0.0:5000
+
+deploy:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
   - docker push $DOCKER_USERNAME/simple_flask_app:latest
