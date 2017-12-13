@@ -13,7 +13,7 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - python myapp/tests.py
+  - python tests.py
   - docker --version
   - docker build -t $DOCKER_USERNAME/simple_flask_app:latest -f myapp/Dockerfile .
   - docker images
