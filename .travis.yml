@@ -16,4 +16,4 @@ script:
   - python myapp/tests.py
   - docker --version
   - docker build -t simple_flask_app -f myapp/Dockerfile .
-  - docker ps -a
+  - docker images
