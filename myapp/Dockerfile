@@ -1,5 +1,7 @@
 FROM alpine
 
+MAINTANER Your Name "milossimicsimo@gmail.com"
+
 RUN apk add --update \
     python \
     python-dev \
@@ -7,11 +9,10 @@ RUN apk add --update \
     build-base
 
 RUN pip install --upgrade pip
-
-RUN pip install Flask
+RUN pip install -r requirements.txt
 
 COPY . /code
-
 WORKDIR /code
 
-CMD python app.py
+EXPOSE 5000
+ENTRYPOINT ["python", "app.py"]
