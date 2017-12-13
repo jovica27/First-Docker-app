@@ -11,7 +11,7 @@ RUN pip install --upgrade pip
 COPY . /app
 WORKDIR /app
 
-RUN ["/bin/pwd/app"]
+RUN ["/bin/pwd"]
 
 RUN pip install -r /app/requirements.txt
 
