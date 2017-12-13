@@ -15,8 +15,8 @@ install:
 script:
   - python myapp/tests.py
   - docker --version
-  - docker build -t simple_flask_app -f myapp/Dockerfile .
+  - docker build -t $DOCKER_USERNAME/simple_flask_app -f myapp/Dockerfile .
   - docker images
-  - docker run -d -p 5000:5000 simple_flask_app
+  - docker run -d -p 5000:5000 $DOCKER_USERNAME/simple_flask_app
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
   - docker push $DOCKER_USERNAME/simple_flask_app
