@@ -18,6 +18,5 @@ script:
   - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
   - docker images
   - docker run -d -p 5000:5000 $DOCKER_USERNAME/simple_flask_app:latest
-  - curl 0.0.0.0:5000
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
   - docker push $DOCKER_USERNAME/simple_flask_app:latest
