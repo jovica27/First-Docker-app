@@ -11,7 +11,7 @@ RUN pip install --upgrade pip
 COPY . /app
 WORKDIR /app
 
-RUN pip install -r Flask
+RUN pip install Flask
 
 EXPOSE 5000
 ENTRYPOINT ["python", "app.py"]
