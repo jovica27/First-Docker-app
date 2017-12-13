@@ -1,7 +1,5 @@
 FROM alpine
 
-MAINTANER Your Name "milossimicsimo@gmail.com"
-
 RUN apk add --update \
     python \
     python-dev \
