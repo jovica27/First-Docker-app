@@ -1,4 +1,7 @@
 # First-Docker-app
+
+https://travis-ci.org/MilosSimic/First-Docker-app.svg?branch=master
+
 simple Docker app
 
 Create image:
