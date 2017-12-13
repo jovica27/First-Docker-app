@@ -1,6 +1,6 @@
 # First-Docker-app
 
-https://travis-ci.org/MilosSimic/First-Docker-app.svg?branch=master
+[![Build Status](https://travis-ci.org/MilosSimic/First-Docker-app.svg?branch=master)](https://travis-ci.org/MilosSimic/First-Docker-app)
 
 simple Docker app
 
