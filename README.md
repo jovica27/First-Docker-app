@@ -16,3 +16,5 @@ docker run -d -p 5000:5000 myapp
 Image is pushed to dockerhub using Travis CI.
 
 [![Dockerhub](https://www.docker.com/sites/default/files/Dockerized%20Apps_icon.png)](https://hub.docker.com/r/milossimic/simple_flask_app/)
+
+Or run like docker run milossimic/simple_flask_app
