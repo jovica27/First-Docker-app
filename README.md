@@ -7,23 +7,23 @@ simple Flask app that is in Docker demonstrating how to build run and map volume
 
 
 ## Build Docker image
-docker build -t myapp:latest .
+ ```docker build -t myapp:latest .```
 
 
 ## Run from local build
 Run container from local build:
-docker run -d -p 5000:5000 myapp
+ ```docker run -d -p 5000:5000 myapp```
 
 Run container with mapped volumes from local build:
-docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs myapp
+ ```docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs myapp```
 
 
 ## Run from Dockerhub
 Run container from dockerhub:
-docker run -d -p 5000:5000 milossimic/simple_flask_app
+ ```docker run -d -p 5000:5000 milossimic/simple_flask_app```
 
 Run container from dockerhub with mapped volumes:
-docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs milossimic/simple_flask_app
+ ```docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs milossimic/simple_flask_app```
 
 
 ## Dockerhub link
