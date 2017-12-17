@@ -18,7 +18,6 @@ RUN mkdir -p myapp
 COPY ./myapp ./myapp
 
 RUN mkdir -p myapp/logs
-COPY ./myapp/logs ./myapp/logs
 
 EXPOSE 5000
 CMD ["python", "myapp/app.py"]
