@@ -4,7 +4,7 @@ import logging, json
 #Basic config of flask and logging
 app = Flask(__name__)
 
-LOGS = "./logs/flask_logs.log"
+LOGS = "./myapp/logs/flask_logs.log"
 
 logging.basicConfig(filename=LOGS,
                     filemode='a',
