@@ -1,8 +1,17 @@
 from flask import Flask
 import logging, json
+from redis import Redis
+from redis import ConnectionError
+import os
 
-#Basic config of flask and logging
+#Basic config of flask, redis and logging
 app = Flask(__name__)
+redis = Redis(host='redis', port=os.environ['DB_PORT'])
+
+try:
+    redis.ping()
+except ConnectionError:
+    logger.error("Redis isn't running. try restart`")
 
 LOGS = "./myapp/logs/flask_logs.log"
 
@@ -12,14 +21,26 @@ logging.basicConfig(filename=LOGS,
                     datefmt='%H:%M:%S',
                     level=logging.DEBUG)
 
+# Demonstrate simple usage of docker and flask
 @app.route('/')
 def hello_world():
     return 'Flask Dockerized\n'
 
+# Demonstrate usage of docker volumes
 @app.route('/logs')
 def get_logs():
-    data = {}
+    data = parse_logs()
+    return json.dumps(data)
 
+# Demonstrate usage of docker compose options
+@app.route('/inc')
+def inc_redis():
+    redis.incr('inc')
+    return "Page viewed #{} times".format(redis.get('inc'))
+
+# Simple function to parse logs for docker volumes
+def parse_logs():
+    data = {}
     with open(LOGS, "r") as f:
         for line in f.readlines():
             if "- -" in line:
@@ -31,8 +52,8 @@ def get_logs():
                 else:
                     data[r] = 1
 
+    return data
 
-    return json.dumps(data)
 
 
 if __name__ == '__main__':

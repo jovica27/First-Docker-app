@@ -35,6 +35,13 @@ Run container from dockerhub with mapped volumes:
  docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs milossimic/simple_flask_app
  ```
 
+## Run two containers using docker-compose
+To run multiple container it is easier to use docker-compose (navigate to path where docker-compose.yml file is):
+ ```
+ docker-compose up
+ ```
+ 
+ * NOTE: Change the path to location where to store logs inside docker-compose.yml file! 
 
 ## Dockerhub link
 [![Dockerhub](https://www.docker.com/sites/default/files/Dockerized%20Apps_icon.png)](https://hub.docker.com/r/milossimic/simple_flask_app/)
