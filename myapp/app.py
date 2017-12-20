@@ -6,12 +6,15 @@ import os
 
 #Basic config of flask, redis and logging
 app = Flask(__name__)
-redis = Redis(host='redis', port=os.environ['DB_PORT'])
 
-try:
-    redis.ping()
-except ConnectionError:
-    logger.error("Redis isn't running. try restart`")
+env_port = os.environ.get('DB_PORT')
+redis = None
+if env_port:
+    redis = Redis(host='redis', port=env_port)
+    try:
+        redis.ping()
+    except ConnectionError:
+        logger.error("Redis isn't running. try restart`")
 
 LOGS = "./myapp/logs/flask_logs.log"
 
@@ -35,8 +38,11 @@ def get_logs():
 # Demonstrate usage of docker compose options
 @app.route('/inc')
 def inc_redis():
-    redis.incr('inc')
-    return "Page viewed #{} times".format(redis.get('inc'))
+    if redis:
+        redis.incr('inc')
+        return "Page viewed #{} times".format(redis.get('inc'))
+
+    return 'No Redis :()'
 
 # Simple function to parse logs for docker volumes
 def parse_logs():
