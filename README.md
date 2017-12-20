@@ -20,7 +20,7 @@ Run container from local build:
 
 Run container with mapped volumes from local build:
  ```
- docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs myapp
+ docker run -d -p 5000:5000 -v path_to_logs_file_on_your_disk:/usr/src/app/myapp/logs myapp
  ```
 
 
@@ -32,7 +32,7 @@ Run container from dockerhub:
 
 Run container from dockerhub with mapped volumes:
  ```
- docker run -d -p 5000:5000 -v path_to_log:/usr/src/app/myapp/logs milossimic/simple_flask_app
+ docker run -d -p 5000:5000 -v path_to_logs_file_on_your_disk:/usr/src/app/myapp/logs milossimic/simple_flask_app
  ```
 
 ## Run two containers using docker-compose
@@ -42,6 +42,56 @@ To run multiple container it is easier to use docker-compose (navigate to path w
  ```
  
  * NOTE: Change the path to location where to store logs inside docker-compose.yml file! 
+
+To stop docker-compose run:
+ ```
+ docker-compose down
+ ```
+ 
+ * NOTE: Change the path to location where to store logs inside docker-compose.yml file! 
+
+
+## Few other userful commands:
+ * List all images:
+  ```
+  docker-compose down
+  ```
+  
+ * Show active containers:
+  ```
+  docker ps
+  ```
+  
+ * Show inactive containers:
+  ```
+  docker ps -a
+  ```
+  
+ * Remove container:
+  ```
+  docker rm name or hash_of_container
+  ```
+  
+ * Remove image:
+  ```
+  docker rmi name or hash_of_image
+  ```
+  
+ * Stop active container:
+  ```
+  docker stop name or hash_of_container
+  ```
+  
+ * Start inactive container:
+  ```
+  docker start name or hash_of_container
+  ```
+  
+ * Container logs:
+  ```
+  docker logs name or hash_of_container
+  ```
+
 
 ## Dockerhub link
 [![Dockerhub](https://www.docker.com/sites/default/files/Dockerized%20Apps_icon.png)](https://hub.docker.com/r/milossimic/simple_flask_app/)

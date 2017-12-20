@@ -10,7 +10,7 @@ services:
 
     # Set volumes as we did before in docker run
     volumes:
-      - path_to_logs:/usr/src/app/myapp/logs
+      - path_to_logs_file_on_your_disk:/usr/src/app/myapp/logs
 
     # Set port maping as we did before
     ports:
