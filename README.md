@@ -91,6 +91,14 @@ To stop docker-compose run:
   ```
   docker logs name or hash_of_container
   ```
+  
+ * Pull docker image:
+  ```
+  docker pull name_of_container
+  ```
+  
+ * NOTE: name of container must be specified on run
+ * NOTE: all commands can be found in [official docs](https://docs.docker.com/engine/reference/commandline/docker/#child-commands)
 
 
 ## Dockerhub link
