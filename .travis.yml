@@ -17,4 +17,8 @@ after_success:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
 - docker push $DOCKER_USERNAME/simple_flask_app:latest
 deploy:
+  provider: script
+  skip_cleanup: true
   script: chmod 600 deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 ./deploy.sh
+  on:
+    branch: master
