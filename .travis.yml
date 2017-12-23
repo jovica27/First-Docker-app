@@ -5,6 +5,11 @@ python:
 - '2.7'
 - '3.6'
 
+addons:
+  apt:
+    packages:
+    - sshpass
+
 services:
 - docker
 
@@ -27,6 +32,6 @@ after_success:
 deploy:
   provider: script
   skip_cleanup: true
-  script: chmod 600 deploy_key && cp deploy_key ~/.ssh/id_rsa && ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 './deploy.sh'
+  script: chmod 600 deploy_key && sshpass -p $PASS ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 './deploy.sh'
   on:
     branch: master
