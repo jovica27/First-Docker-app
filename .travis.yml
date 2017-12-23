@@ -5,6 +5,11 @@ python:
 - '2.7'
 - '3.6'
 
+addons:
+  apt:
+    packages:
+      - sshpass
+
 services:
 - docker
 
@@ -23,10 +28,11 @@ before_install:
 after_success:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
 - docker push $DOCKER_USERNAME/simple_flask_app:latest
+- export SSHPASS=$DEPLOY_PASS
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: chmod 600 deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 './deploy.sh'
+  script: chmod 600 deploy_key && sshpass -e ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 './deploy.sh'
   on:
     branch: master
