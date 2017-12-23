@@ -21,14 +21,14 @@ script:
 
 before_install:
   - docker --version
-  - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
+  - docker build -t $USERNAME/simple_flask_app:latest .
   - docker images
   - openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv -in deploy_key.enc -out ./deploy_key -d
 
 after_success:
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+  - docker login -u "$USERNAME" -p "$PASSWORD";
   - docker push $DOCKER_USERNAME/simple_flask_app:latest
-  - export SSHPASS=$DEPLOY_PASS
+  - export SSHPASS=$DEPLOY
 
 deploy:
   provider: script
