@@ -1,28 +1,20 @@
 sudo: required
-
 language: python
-
 python:
-  - "2.7"
-  - "3.6"
-
+- '2.7'
+- '3.6'
 services:
-  - docker
-
+- docker
 install:
-  - pip install -r requirements.txt
-
+- pip install -r requirements.txt
 script:
-  - python tests.py
-
+- python tests.py
 before_install:
-  - docker --version
-  - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
-  - docker images
-
+- docker --version
+- docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
+- docker images
 after_success:
-    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    - docker push $DOCKER_USERNAME/simple_flask_app:latest
-
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+- docker push $DOCKER_USERNAME/simple_flask_app:latest
 deploy:
-  script: chmod 600 deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 './deploy.sh'
+  script: chmod 600 deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 ./deploy.sh
