@@ -1,38 +1,37 @@
 sudo: required
 language: python
-
 python:
 - '2.7'
-- '3.6'
-
+#- '3.6'
 addons:
   apt:
     packages:
-      - sshpass
-
+    - sshpass
 services:
 - docker
-
 install:
 - pip install -r requirements.txt
-
 script:
 - python tests.py
-
 before_install:
 - docker --version
 - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
 - docker images
-- openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv -in deploy_key.enc -out ./deploy_key -d
-
+- openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv
+  -in deploy_key.enc -out ./deploy_key -d
 after_success:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
 - docker push $DOCKER_USERNAME/simple_flask_app:latest
 - export SSHPASS=$DEPLOY_PASS
-
 deploy:
   provider: script
   skip_cleanup: true
-  script: chmod 600 deploy_key && sshpass -e ssh -o StrictHostKeyChecking=no -i ./deploy_key uksdocker@147.91.177.194 './deploy.sh'
+  script: chmod 600 deploy_key && sshpass -e ssh -o StrictHostKeyChecking=no -i ./deploy_key
+    uksdocker@147.91.177.194 './deploy.sh'
   on:
     branch: master
+env:
+  global:
+  - secure: KqKYaoZMBrX+zbd/A8V71BTYruzINhw3eQd40NkHWBykL45IzRBho7mkhQenbL9rlgcH9yXha/u1rU1aE1lilEsW8YXmSvZlgBzPGBfVfo2H1kkBvPbCWRcLgHkN6g6rnvqN3o0x1qrxTHhQHOGNaYHwXFStiwK7Mbx3goVLPSVvla9mw9hOd+j6qHzmklcpNWWa76dKw7cLdY/LDQ5jhnfI9aV4kazyhdjRjum2Zulh0CgkWYbwFmJQUhNSVtjKYKZfbZGdNA/5dqxCY4ar5+M27MYClTgjXz7KCXVCKtwKKpT38U2YfYmLPryuXbeEd/S47O1H/LuV5Ubt/hFRabYRityEzE7sJ/DLdG1MUmSZhNgKWv3cLto6aC42riiehvyUyJ9cZMWkY+9tHoIenavzhhJ/rD9bWz6z7luDVVjkgwuAQ0qrqh01LcEmqEgVv90yhHSnzOUtkdfI+DM/OOZ4L76IkKAQifvB8FWnax+LdXyU8nSN6hNAMVXkaDa+HHP5y/BcVhf/WBdZU3qE4BIeDHxHPOvPtNnYyJoYjBu6St1ppSvvdn/ygRD8teqgAkJqHs31ufNiHu1jJD2ocwyZlavS2bDwnHfegrJvO6VaIFsrGnbHkZW+88xOHQZwiecHADKfuQ8aUr03RmIlXTe8UepfKHE5Znp7ZP3eEyU=
+  - secure: 1qQ1WH1LLdtpREk7boM21da28RB/d03HephoKv9yLxM9MxORacLnN52fWDDauCM5/9qYPjzC1Ke5GCPrWP22z4G+lvwBYXIW/5olCqO7amKaNDUwdH7TyxcA63/GENbntgaavIsh1vZeoMt8AlBaIuHVitxKEagYYMBoQ33ZSsBQGkleMb417GKZBvWiZgvjoXZWhTD5LE+nfbe6YbjW3sAwspCCmcdAJCrhH1sgYiZu/u8UQ9fUidKoEeOxJMvtmkPj4XjbBdMpG1yWAruHjIBQ3YAYKNNuEtUagT8QHctmE+VakIpyzYWT002zz/BFVNCG8ZjHs41MczceFT67YZDWUvIiAp6FBBiodcrsl8eNmhklAQ61CVjIPEStMvo72y1vHhBIollExK2FUNj6kqcDNaOeYS25E9KTZ6D5Sw9Iew+89rlds0E9sJaQbR59khI6NGNY98g/aArkG3lWwNRn79RpRY+02pWQv4bx990RQXZhj6zgGe1t/tqumsEpE6y9aCqtFfPdELSuH2p7RKejteVdl/eD5+OACKg3p1e6mJEICiSTje8Pxrds7yc6pSms5p8iEpx6jcO3ybHLFpnYx2byiZRIUNu2MN4rRUyiYseLG5mKbFCtDhgT/ZBixD0dHDewOTUbXeX2cRn8scftouvmfwPGifNR1aMVkFw=
+  - secure: MM97wbvTLjwXAbDnYN8W5p1RBGQxnnpLDLmysa3WZ5QUN8ERyUEbrVZNGU9ApjONG0UvHuyl0h/xk6V5yxKF8PIYFWQO+zy/0ujqLNJlO9YC+P0YFvFK/hUVwkB+bRZIyuUY9j33Klg7sBrHhDeaSAhjRSIiEjn/hSCnxDivJgOzC9A4RXc3oJgSml7XEOPkSJBlJIA0GFyvAoCtmmjdZAR3e0D5Hmbr1G/rQYipokMLPyrK48QYpZ2gUJ/AwxfPFU0ietBuOi3hopUSslJMwjM0Py/VJgGfbsI6a+mtxnZWcrwMofZxjNrkrTiqdkB1aGe9oBA/FCFR4IrgMMmTj4bkDk+4Wcogk1DAyKp+6yYqYasWx6b+0ak2iwhH2W96AHEwcw+oZkBcIpUvGVDrYrYlR5irfW5PZVNqHBGvv1VSKzi/rXQFMseH6eKB+hjhQhqKgB3XWLZJHgu6wnsiJjxJKq8IjKOU4a8Fji0Q0EL3bNQKd8qvxbQUgR7fsgxXdKxJXMAe5oIXWXzyEqceSJ40k8cqi5RxFxgg+cjnZk3dmRxwZA1qtNN2MbzZ1XJim+BZtb7Yh1aRD6V1tDp+MP4F9Hv1EofzHI6ut4xlq8LrF6z6fqrqYX/lhCBQXezH81fxNc3PBeHl29iNNnhnehV6hOasuqhgUS82pP/bHHI=
