@@ -13,9 +13,12 @@ before_install:
 - docker --version
 - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
 - docker images
+- openssl aes-256-cbc -pass "pass:$MY_SECRET_ENV" -in ./deploy_key.enc -out ./deploy_key -d -a
+
 after_success:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
 - docker push $DOCKER_USERNAME/simple_flask_app:latest
+
 deploy:
   provider: script
   skip_cleanup: true
