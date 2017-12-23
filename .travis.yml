@@ -2,26 +2,32 @@ sudo: required
 language: python
 python:
 - '2.7'
+
 addons:
   apt:
     packages:
-    - sshpass
+      - sshpass
+
 services:
-- docker
+  - docker
+
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
+
 script:
-- python tests.py
+  - python tests.py
+
 before_install:
-- docker --version
-- docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
-- docker images
-- openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv
-  -in deploy_key.enc -out ./deploy_key -d
+  - docker --version
+  - docker build -t $DOCKER_USERNAME/simple_flask_app:latest .
+  - docker images
+  - openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv -in deploy_key.enc -out ./deploy_key -d
+
 after_success:
-- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-- docker push $DOCKER_USERNAME/simple_flask_app:latest
-- export SSHPASS=$DEPLOY_PASS
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+  - docker push $DOCKER_USERNAME/simple_flask_app:latest
+  - export SSHPASS=$DEPLOY_PASS
+
 deploy:
   provider: script
   skip_cleanup: true
@@ -29,6 +35,7 @@ deploy:
     uksdocker@147.91.177.194 './deploy.sh'
   on:
     branch: master
+
 env:
   global:
   - secure: fXf3/Tel8VPJ71UsYNCLSUH/8tNTyFW23ZDJXjnKgVA5cmkCkbuqWEEUWFrTB8KwbedpxqcPHdmVOC+pf8aXqelSDeJzKJ8KU+i8IW8irl/r3cGHhOp0wvnOHnMxnXk9+1Aq5LMdyZSryEBfX6zPlCdAOW66+X0a43U6QRRtQDMg/ikWVzXe5Qx5pT6xb0Wr1lH4Ob3ezZDs1OUBEdSRgne6D5FC5i1OHxZEOMzc5jvoJcVN/7F4uxpE8ZU8vZIa5/Rxfu6xmHgf+roOJwKMYxbuO3L9dOvOZ0l4ixhwODk1v25xNGTRsq9arrO9VYW4kUM9ARDu5LfBnFA9+/nocbc4CeYkIUktCRpbwV+39MAV6J1IXCumPdTz97OM8DZbPCVPamWda4ynxAMnXk/nWFf0B9X7c2kEPdW3GeRwFDyU6JQbaAXVbIDnGPgWb+qT7wClv+ZJ7y9r5q1Fm+treRfAitosPEdLfOCCEEcFrzGHGSchAs0J+PG9azzSiG/57VylVxpR/fFlSXWfcMO6kFhig4dB2un5TrL7qUTcDKnZ3iCV7seKjmYMH27+VRmqBgEYeC0rt+NOykzu9Gc2Fsx8KFfo2tZwPo0FISSEKDmZkYF0WLbLSWttiV3DWCm4UfbHScEIJcuFKZ5z3NffbG6CEGt3VJu+1/6qAD4v+Sw=
