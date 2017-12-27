@@ -42,7 +42,7 @@ def inc_redis():
         redis.incr('inc')
         return "Page viewed #{} times".format(redis.get('inc'))
 
-    return 'No Redis :()'
+    return 'No Redis sorry :('
 
 # Simple function to parse logs for docker volumes
 def parse_logs():
