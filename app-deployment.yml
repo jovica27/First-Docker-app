@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: flask
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: milossimic/simple_flask_app:latest
+        env:
+        - name: DB_PORT
+          value: "6379"
+        ports:
+        - containerPort: 5000
