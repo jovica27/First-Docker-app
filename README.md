@@ -105,3 +105,41 @@ To stop docker-compose run:
 [![Dockerhub](https://www.docker.com/sites/default/files/Dockerized%20Apps_icon.png)](https://hub.docker.com/r/milossimic/simple_flask_app/)
 
 [Image](https://hub.docker.com/r/milossimic/simple_flask_app/) is pushed to dockerhub using Travis CI.
+
+## Kubernetes and Minikube
+[![Minikube](https://sweetcode.io/wp-content/uploads/2017/02/imgres.png)](https://kubernetes.io/docs/setup/minikube/)
+Short tutorial for kubernetes and minikube can be foun on the [page](https://sweetcode.io/learning-kubernetes-getting-started-minikube/).
+
+ * Kubernetes list pods:
+  ```
+  kubectl get pods
+  ```
+  * Kubernetes list services:
+  ```
+  kubectl get services
+  ```
+ * Kubernetes list deployments:
+  ```
+  kubectl get deployments
+  ```
+   * Kubernetes apply object:
+  ```
+  kubectl apply -f filen_name.yaml
+  ```
+  * Minikube start:
+  ```
+  minikube start
+  ```
+  * Minikube stop:
+  ```
+  minikube stop
+  ```
+  * Minikube ip address:
+  ```
+  minikube ip
+  ```
+  * Minikube dashboard:
+  ```
+  minikube dashboard
+  ```
+   * NOTE: all commands can be found in [official docs](https://kubernetes.io/docs/reference/kubectl/kubectl-cmds/)
