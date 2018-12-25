@@ -108,7 +108,8 @@ To stop docker-compose run:
 
 ## Kubernetes and Minikube
 [![Minikube](https://sweetcode.io/wp-content/uploads/2017/02/imgres.png)](https://kubernetes.io/docs/setup/minikube/)
-Short tutorial for kubernetes and minikube can be foun on the [page](https://sweetcode.io/learning-kubernetes-getting-started-minikube/).
+
+[Tutorial](https://sweetcode.io/learning-kubernetes-getting-started-minikube/) for kubernetes and minikube
 
  * Kubernetes list pods:
   ```
